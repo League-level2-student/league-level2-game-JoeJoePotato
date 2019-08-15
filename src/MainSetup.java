@@ -3,9 +3,7 @@ import java.awt.Dimension;
 import javax.swing.JFrame;
 
 public class MainSetup {
-public static final int INTRO=1;
-public static final int GAME=2;
-public static final int CREDITS=3;
+
 GamePanel g;
 JFrame frame;
 public static final int WIDTH=1000;
@@ -19,6 +17,7 @@ MainSetup m= new MainSetup();
 m.setup();
 }
 public void setup() {
+	frame=new JFrame();
 	Dimension d=new Dimension(WIDTH,HEIGHT);
 	GamePanel gpanel=new GamePanel();
 	frame.setVisible(true);
