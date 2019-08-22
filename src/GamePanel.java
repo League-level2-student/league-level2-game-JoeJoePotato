@@ -13,6 +13,7 @@ public class GamePanel  extends JPanel implements ActionListener, KeyListener {
 	public static final int INTRO=1;
 	public static final int GAME=2;
 	public static final int CREDITS=3;
+	submarine s=new submarine(500, 750,50,100, 12,0);
 	 Font titleFont = new Font("Arial", Font.PLAIN, 48);
 	Timer frameDraw;
 	int currentstate=INTRO;
@@ -45,7 +46,7 @@ public class GamePanel  extends JPanel implements ActionListener, KeyListener {
 		g.setFont(titleFont);
 		g.setColor(Color.YELLOW);
 		g.drawString("Score: "+"Torpedos: ", 100, 100);
-
+s.draw(g);
 	}
 	void  drawEndState(Graphics g)  {  
 		g.setColor(Color.BLACK);
@@ -98,6 +99,31 @@ public class GamePanel  extends JPanel implements ActionListener, KeyListener {
 				
 				}
 		}
+			if(currentstate==GAME) {
+				if (e.getKeyCode()==KeyEvent.VK_UP) {
+				    System.out.println("UP");
+				}
+				if (e.getKeyCode()==KeyEvent.VK_DOWN) {
+				    System.out.println("down");
+				}
+				if (e.getKeyCode()==KeyEvent.VK_LEFT) {
+				    System.out.println("left");
+				s.velocity=-12;
+				s.move();
+				}
+				if (e.getKeyCode()==KeyEvent.VK_RIGHT) {
+				    System.out.println("right");
+				s.velocity=12;
+				s.move();
+				}
+			
+			}
+			
+			
+			
+			
+			
+			
 		
 		}	
 		@Override
