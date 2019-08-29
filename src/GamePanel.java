@@ -5,7 +5,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.image.BufferedImage;
 
+import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
@@ -13,20 +15,29 @@ public class GamePanel  extends JPanel implements ActionListener, KeyListener {
 	public static final int INTRO=1;
 	public static final int GAME=2;
 	public static final int CREDITS=3;
+	
 	submarine s=new submarine(500, 750,50,100, 12,0);
-	 Font titleFont = new Font("Arial", Font.PLAIN, 48);
+	Objectmanager o=new Objectmanager(s);
+	Font titleFont = new Font("Arial", Font.PLAIN, 48);
+	Timer shipSpawn;
 	Timer frameDraw;
 	int currentstate=INTRO;
 		GamePanel() {
 			frameDraw = new Timer(1000 / 60, this);
 			frameDraw.start();
 			
-		
 	
 		}
+	void startGame() {
+	    shipSpawn = new Timer(1000 ,o);
+	    shipSpawn.start();
+	}
+		
 		
 	void	updateMenuState() { }
-		void updateGameState() {  }
+		void updateGameState() { 
+			o.update();
+		}
 	void	 updateEndState()  {  }
 	void drawMenuState(Graphics g) {  
 		g.setColor(Color.BLUE);
@@ -46,13 +57,19 @@ public class GamePanel  extends JPanel implements ActionListener, KeyListener {
 		g.setFont(titleFont);
 		g.setColor(Color.YELLOW);
 		g.drawString("Score: "+"Torpedos: ", 100, 100);
-s.draw(g);
+o.draw(g);
 	}
 	void  drawEndState(Graphics g)  {  
 		g.setColor(Color.BLACK);
 		g.fillRect(0, 0, MainSetup.WIDTH, MainSetup.HEIGHT);
 	}
 		
+	
+	
+	
+	
+	
+	
 		@Override
 		public void paintComponent(Graphics g){
 		
@@ -96,15 +113,17 @@ s.draw(g);
 				}else {
 					
 					currentstate++;
-				
+				if(currentstate==GAME) {
+					startGame();
+				}
 				}
 		}
 			if(currentstate==GAME) {
 				if (e.getKeyCode()==KeyEvent.VK_UP) {
-				    System.out.println("UP");
+					o.addtorp(s.getProjectile());
 				}
 				if (e.getKeyCode()==KeyEvent.VK_DOWN) {
-				    System.out.println("down");
+				
 				}
 				if (e.getKeyCode()==KeyEvent.VK_LEFT) {
 				    System.out.println("left");
