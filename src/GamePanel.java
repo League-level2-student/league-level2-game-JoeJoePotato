@@ -15,7 +15,7 @@ public class GamePanel  extends JPanel implements ActionListener, KeyListener {
 	public static final int INTRO=1;
 	public static final int GAME=2;
 	public static final int CREDITS=3;
-	
+	public int points=0;
 	submarine s=new submarine(500, 750,50,100, 12,0);
 	Objectmanager o=new Objectmanager(s);
 	Font titleFont = new Font("Arial", Font.PLAIN, 48);
@@ -29,14 +29,26 @@ public class GamePanel  extends JPanel implements ActionListener, KeyListener {
 	
 		}
 	void startGame() {
-	    shipSpawn = new Timer(1000 ,o);
+	   s.isActive=true;
+		points=0;
+		shipSpawn = new Timer(1000 ,o);
 	    shipSpawn.start();
 	}
-		
+		void gameOver() {
+			shipSpawn.stop();
+			s=new submarine(500, 750,50,100, 12,0);
+		o=new Objectmanager(s);
+		}
 		
 	void	updateMenuState() { }
 		void updateGameState() { 
+			
+			if(s.isActive==false) {
+				currentstate=CREDITS;
+			gameOver();
+			}
 			o.update();
+		points+=o.score;
 		}
 	void	 updateEndState()  {  }
 	void drawMenuState(Graphics g) {  
@@ -110,29 +122,31 @@ o.draw(g);
 				if (currentstate == CREDITS) {
 					currentstate = INTRO;
 					
-				}else {
-					
+				}else if(currentstate==INTRO) {
 					currentstate++;
-				if(currentstate==GAME) {
 					startGame();
 				}
-				}
+				
 		}
 			if(currentstate==GAME) {
 				if (e.getKeyCode()==KeyEvent.VK_UP) {
 					o.addtorp(s.getProjectile());
 				}
 				if (e.getKeyCode()==KeyEvent.VK_DOWN) {
-				
+				s.loaded=true;
 				}
 				if (e.getKeyCode()==KeyEvent.VK_LEFT) {
-				    System.out.println("left");
-				s.velocity=-12;
+			if(s.loaded==false) {
+				s.velocity=-16;
+			}else {
+				s.velocity=-12;}
 				s.move();
 				}
 				if (e.getKeyCode()==KeyEvent.VK_RIGHT) {
-				    System.out.println("right");
-				s.velocity=12;
+					if(s.loaded==false) {
+						s.velocity=16;
+					}else {	
+				s.velocity=12;}
 				s.move();
 				}
 			

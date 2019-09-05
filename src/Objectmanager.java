@@ -7,6 +7,7 @@ import java.util.Random;
 public class Objectmanager implements ActionListener {
 submarine s;
 Random random=new Random();
+int score;
 
 ArrayList<torpedo> up = new ArrayList<torpedo>();
 
@@ -17,7 +18,38 @@ ArrayList<submarine> ships = new ArrayList<submarine>();
 Objectmanager(submarine s){
 		this.s=s;
 	}
+
+void CheckCollisions() {
+	for (int i = 0; i <ships.size(); i++) {
+		submarine jeb=ships.get(i);
+		
+		for (int j = 0; j <up.size(); j++) {
+			torpedo ted=up.get(j);
+			
+			if(jeb.collisionbox.intersects(ted.collisionbox)) {
+				jeb.isActive=false;
+				ted.isActive=false;
+			score+=jeb.pointvalue;
+			}}}	
+
+
+	for (int j = 0; j <down.size(); j++) {
+		torpedo jed=down.get(j);
+		
+		if(jed.collisionbox.intersects(s.collisionbox)) {
+			jed.isActive=false;
+			s.isActive=false;
+		score-=200;
+		}}
 	
+
+
+}
+
+
+
+
+
 void update() {
 for (int i = 0; i <ships.size(); i++) {
 	submarine jeb=ships.get(i);
@@ -39,6 +71,8 @@ for (int z = 0; z <down.size(); z++) {
 		zed.isActive=false;
 	}
 }	
+CheckCollisions();
+purgeObjects();
 }
 
 
@@ -53,14 +87,14 @@ for (int i = 0; i <ships.size(); i++) {
 	for (int j = 0; j <up.size(); j++) {
 		torpedo jed=up.get(j);
 		if (jed.isActive==false) {
-			ships.remove(j);
+				up.remove(j);
 		}
 	}
 	
 for (int z = 0; z <down.size(); z++) {
 	torpedo zed=down.get(z);
 	if (zed.isActive==false) {
-		ships.remove(z);
+	down.remove(z);
 	}
 }	
 }
@@ -88,7 +122,9 @@ void draw(Graphics g) {
 		
 	for (int z = 0; z <down.size(); z++) {
 		torpedo zed=down.get(z);
+	zed.update();
 		zed.draw(g);
+	
 	}	
 s.draw(g);
 
@@ -116,16 +152,19 @@ ships.add(new submarine(0,150,125,60, 3,825));
 
 void addtorp(torpedo t){
 up.add(t);
+s.loaded=false;
 }
 
 void adddepthc(){
-down.add(new torpedo(random.nextInt(1000),0,10,20, 18,0));
+down.add(new torpedo(random.nextInt(1000),0,10,20, -5,0));
 }
 
 @Override
 public void actionPerformed(ActionEvent e) {
 	// TODO Auto-generated method stub
 int p=	random.nextInt(5);
+
+adddepthc();
 if(p==0) {
 	addShip1();
 }else if(p==1) {
@@ -136,8 +175,10 @@ if(p==0) {
 	addShip4();
 }else if(p==4){
 	addShip5();
-}
+}	
 
 }
 
 }
+
+

@@ -9,8 +9,8 @@ public class submarine extends ship{
 	public static BufferedImage image;
 	public static boolean needImage = true;
 	public static boolean gotImage = false;	
-	
-	boolean isactive=true;
+	Boolean loaded=true;
+
 	submarine(int x, int y, int width, int height, int velocity, int pointvalue) {
 		super(x, y, width, height, velocity, pointvalue);
 		// TODO Auto-generated constructor stub
@@ -20,8 +20,14 @@ public class submarine extends ship{
 	}
 
 	public torpedo getProjectile() {
-        return new torpedo(x+width/2, y, 10,20, 5,0);
-} 
+       if(loaded==true){
+		return new torpedo(x+width/2, y, 10,20, 5,0);
+     
+       }else {
+    	   return new torpedo(x+width/2,-1, 10,20, 5,0);
+       }
+       
+       } 
 	
 	
 	
@@ -37,7 +43,9 @@ public class submarine extends ship{
 }
 void move() {
 	 x=x+velocity;
+     super.Cupdate();
 }
+
 
 
 void loadImage(String imageFile) {

@@ -23,6 +23,7 @@ void draw(Graphics g){
 }
 void update(){
 	y=y-velocity;
+    super.Cupdate();
 }
 
 void loadImage(String imageFile) {
