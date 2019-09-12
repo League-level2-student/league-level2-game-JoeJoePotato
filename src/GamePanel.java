@@ -15,14 +15,16 @@ public class GamePanel  extends JPanel implements ActionListener, KeyListener {
 	public static final int INTRO=1;
 	public static final int GAME=2;
 	public static final int CREDITS=3;
-	public int points=0;
+
+	
 	submarine s=new submarine(500, 750,50,100, 12,0);
 	Objectmanager o=new Objectmanager(s);
 	Font titleFont = new Font("Arial", Font.PLAIN, 48);
 	Timer shipSpawn;
 	Timer frameDraw;
 	int currentstate=INTRO;
-		GamePanel() {
+	int points=0;
+	GamePanel() {
 			frameDraw = new Timer(1000 / 60, this);
 			frameDraw.start();
 			
@@ -30,14 +32,17 @@ public class GamePanel  extends JPanel implements ActionListener, KeyListener {
 		}
 	void startGame() {
 	   s.isActive=true;
-		points=0;
+	   o.score=0;
 		shipSpawn = new Timer(1000 ,o);
 	    shipSpawn.start();
 	}
 		void gameOver() {
+			o.score-=200;
+			 points=o.score;
 			shipSpawn.stop();
 			s=new submarine(500, 750,50,100, 12,0);
 		o=new Objectmanager(s);
+		currentstate=CREDITS;
 		}
 		
 	void	updateMenuState() { }
@@ -47,10 +52,15 @@ public class GamePanel  extends JPanel implements ActionListener, KeyListener {
 				currentstate=CREDITS;
 			gameOver();
 			}
+			if(o.torps==0) {
+			o.score+=400;
+			gameOver();
+			}
+			
 			o.update();
-		points+=o.score;
 		}
-	void	 updateEndState()  {  }
+	
+		void	 updateEndState()  {  }
 	void drawMenuState(Graphics g) {  
 		g.setColor(Color.BLUE);
 		g.fillRect(0, 0, MainSetup.WIDTH, MainSetup.HEIGHT);
@@ -68,14 +78,39 @@ public class GamePanel  extends JPanel implements ActionListener, KeyListener {
 		g.fillRect(0, 0, MainSetup.WIDTH, MainSetup.HEIGHT);
 		g.setFont(titleFont);
 		g.setColor(Color.YELLOW);
-		g.drawString("Score: "+"Torpedos: ", 100, 100);
+		g.drawString("Score: "+o.score+" Torpedos: "+o.torps, 100, 100);
 o.draw(g);
 	}
 	void  drawEndState(Graphics g)  {  
 		g.setColor(Color.BLACK);
 		g.fillRect(0, 0, MainSetup.WIDTH, MainSetup.HEIGHT);
+		g.setColor(Color.YELLOW);
+		g.setFont(titleFont);
+		if(points==19800) {
+			g.drawString("Mission Report: Legend ~~(V)~~ Score: 20,000", 0, 100);	
+		}else if(points>=15000) {
+			g.drawString("Mission Report: Admiral ~=(V)=~ Score: "+points, 0, 100);	
+		}else if(points>=11250) {
+			g.drawString("Mission Report: Vice Admiral ~-(V)-~ Score: "+points, 0, 100);	
+		}else if(points>=5625) {
+			g.drawString("Mission Report: commodore ~(V)~ Score: "+points, 0, 100);	
+		}else if(points>=4500) {
+			g.drawString("Mission Report: captain ~()~ Score: "+points, 0, 100);	
+		}else if(points>=300) {
+			g.drawString("Mission Report: officer =()= Score: "+points, 0, 100);	
+		}else if(points>0) {
+			g.drawString("Mission Report: lieutenant -()- Score: "+points, 0, 100);	
+		}else{
+			g.drawString("Mission Report: recruit () Score: "+points, 0, 100);	
+		}
+		
+		g.drawString("Game developed by Graham Garibaldi", 50, 500);
+		g.drawString("inspired by the game Torpedo Away!", 50, 700);
+		g.drawString("by Fiddly Bits Software", 50, 900);
+
 	}
 		
+	
 	
 	
 	

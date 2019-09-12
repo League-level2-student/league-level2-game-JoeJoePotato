@@ -24,7 +24,8 @@ public class submarine extends ship{
 		return new torpedo(x+width/2, y, 10,20, 5,0);
      
        }else {
-    	   return new torpedo(x+width/2,-1, 10,20, 5,0);
+    	   return new torpedo(x+width/2,-1000, 10,20, 5,0);
+     
        }
        
        } 
