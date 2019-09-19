@@ -8,6 +8,7 @@ import java.awt.event.KeyListener;
 import java.awt.image.BufferedImage;
 
 import javax.imageio.ImageIO;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
@@ -187,7 +188,11 @@ o.draw(g);
 			
 			}
 			
-			
+			if(e.getKeyCode()==KeyEvent.VK_SPACE) {
+				if(currentstate==INTRO) {
+					JOptionPane.showMessageDialog(null, "Press the up arrow key to fire torpedoes at ships\nPress the down arrow key to reload\nFarther away ships are worth more\nUse right and left arrow keys to avoid enemy torpedoes");
+				}
+			}
 			
 			
 			

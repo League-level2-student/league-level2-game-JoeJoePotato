@@ -15,8 +15,20 @@ public class submarine extends ship{
 		super(x, y, width, height, velocity, pointvalue);
 		// TODO Auto-generated constructor stub
 		if (needImage) {
-		    loadImage (null);
-		}
+		   if(this.pointvalue==0) {
+			loadImage ("sub.png");
+		   }else if(this.pointvalue==50) {
+			loadImage ("this.destroyer.png");
+		   }else if(this.pointvalue==150) {
+			loadImage ("tug.png");
+		   }else if(this.pointvalue==300) {
+			loadImage ("cargo.png");
+		   }else if(this.pointvalue==500) {
+			loadImage ("tanker.png");
+		   }else if(this.pointvalue==825) {
+			loadImage ("transport.png");
+		   }
+		   }
 	}
 
 	public torpedo getProjectile() {

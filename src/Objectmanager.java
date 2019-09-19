@@ -58,14 +58,12 @@ public class Objectmanager implements ActionListener {
 		for (int j = 0; j < up.size(); j++) {
 			torpedo jed = up.get(j);
 			if (jed.y < 0) {
-				if (jed.y > -1000) {
-					jed.isActive = false;
-				} else {
+				
 					torps -= 1;
 					jed.isActive = false;
 				}
 			}
-		}
+		
 
 		for (int z = 0; z < down.size(); z++) {
 			torpedo zed = down.get(z);
@@ -132,7 +130,7 @@ public class Objectmanager implements ActionListener {
 	}
 
 	void addShip3() {
-		ships.add(new submarine(0, 350, 150, 50, 6, 250));
+		ships.add(new submarine(0, 350, 150, 50, 6, 300));
 	}
 
 	void addShip4() {
