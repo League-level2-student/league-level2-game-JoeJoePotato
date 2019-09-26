@@ -69,7 +69,7 @@ public class GamePanel  extends JPanel implements ActionListener, KeyListener {
 		g.fillRect(0, 0, MainSetup.WIDTH, MainSetup.HEIGHT);
 		g.setFont(titleFont);
 		g.setColor(Color.YELLOW);
-		g.drawString("Torpedo Away!\n  \n  ", 100, 100);
+		g.drawString("-CONVOY STRIKE-\n  \n  ", 100, 100);
 		g.drawString("a Graham Garibaldi Game",100, 200); 	
 		g.drawString("press enter to play",100, 300);
 		g.drawString("press space for instructions",100, 400);
@@ -166,7 +166,8 @@ o.draw(g);
 		}
 			if(currentstate==GAME) {
 				if (e.getKeyCode()==KeyEvent.VK_UP) {
-					o.addtorp(s.getProjectile());
+					if (s.loaded==true) {
+					o.addtorp(s.getProjectile());}
 				}
 				if (e.getKeyCode()==KeyEvent.VK_DOWN) {
 				s.loaded=true;

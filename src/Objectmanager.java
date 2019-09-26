@@ -58,11 +58,12 @@ public class Objectmanager implements ActionListener {
 		for (int j = 0; j < up.size(); j++) {
 			torpedo jed = up.get(j);
 			if (jed.y < 0) {
-				
+
 					torps -= 1;
 					jed.isActive = false;
-				}
+			}	
 			}
+			
 		
 
 		for (int z = 0; z < down.size(); z++) {

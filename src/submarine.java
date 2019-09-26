@@ -6,9 +6,9 @@ import javax.imageio.ImageIO;
 
 public class submarine extends ship{
 	
-	public static BufferedImage image;
-	public static boolean needImage = true;
-	public static boolean gotImage = false;	
+	public BufferedImage image;
+	public  boolean needImage = true;
+	public  boolean gotImage = false;	
 	Boolean loaded=true;
 
 	submarine(int x, int y, int width, int height, int velocity, int pointvalue) {
@@ -16,9 +16,9 @@ public class submarine extends ship{
 		// TODO Auto-generated constructor stub
 		if (needImage) {
 		   if(this.pointvalue==0) {
-			loadImage ("sub.png");
+			loadImage ("submareine.png");
 		   }else if(this.pointvalue==50) {
-			loadImage ("this.destroyer.png");
+			loadImage ("destroyer.png");
 		   }else if(this.pointvalue==150) {
 			loadImage ("tug.png");
 		   }else if(this.pointvalue==300) {
@@ -32,13 +32,10 @@ public class submarine extends ship{
 	}
 
 	public torpedo getProjectile() {
-       if(loaded==true){
+ 
 		return new torpedo(x+width/2, y, 10,20, 5,0);
      
-       }else {
-    	   return new torpedo(x+width/2,-1000, 10,20, 5,0);
-     
-       }
+   
        
        } 
 	
